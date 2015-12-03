@@ -73,7 +73,7 @@ public class Chomp4by7Strategy implements Strategy
   public Location findRandomMove(ChompGame game)
   {
     int rows = game.numRows(), cols = game.numCols();
-    Location[] list = new Location[rows + cols];
+    Location[] list = new Location[rows * cols];
 
     int count = 0;
 
