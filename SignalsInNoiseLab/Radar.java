@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 /**
  * The model for radar scan and accumulator
  * 
@@ -34,7 +34,8 @@ public class Radar
     public Radar(int rows, int cols)
     {
         // initialize the currentScan 2D array and the accumulator 2D array
-        
+        currentScan = new boolean[rows][cols];
+        accumulator = new int[rows][cols];
         
         //
         // !!! add code here !!!
@@ -63,10 +64,43 @@ public class Radar
         //    4. update the accumulator 2D array based on the state of the currentScan 2D array
         //    5. increment the numScans instance variable
         
+        //1
+        for (int i = 0; i < currentScan.length; i++)
+        {
+            for (int j = 0; j < currentScan[i].length; j++)
+            {
+                currentScan[i][j] = false;
+            }
+        }
         
-        //
-        // !!! add code here !!!
-        //
+        //2
+        
+        //New feature: Inserts false positive
+        if (Math.random() > noiseFraction)
+        {
+            currentScan[monsterLocationRow][monsterLocationCol] = true;
+        }
+        
+        
+        //3
+        injectNoise();
+        
+        
+        //4
+        for (int i = 0; i < currentScan.length; i++)
+        {
+            for (int j = 0; j < currentScan[i].length; j++)
+            {
+                if (currentScan[i][j])
+                {
+                    accumulator[i][j]++;
+                }
+            }
+        }
+        
+        
+        //5
+        numScans++;
         
         
     }
@@ -166,12 +200,21 @@ public class Radar
         // detected as a false positive. Use the Math.random method to determine if each cell should be set
         // as a false positive.
         
-        
-        //
-        // !!! add code here !!!
-        //
+       
+        for (int i = 0; i < currentScan.length; i++)
+        {
+            for (int j = 0; j < currentScan[i].length; j++)
+            {
+                double tempVar = Math.random();
+                if (noiseFraction > tempVar)
+                {
+                    currentScan[i][j] = true;
+                }
+            }
+        }
         
         
     }
+    
     
 }

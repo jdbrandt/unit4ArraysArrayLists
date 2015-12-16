@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import java.util.Scanner;
 
 /**
  * Class that contains the main method for the program and creates the frame containing the component.
@@ -14,11 +15,18 @@ public class RadarViewer
      */
     public static void main(String[] args) throws InterruptedException
     {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter monster row: ");
+        int monsterRow = s.nextInt();
+        System.out.print("Enter monster col: ");
+        int monsterCol = s.nextInt();
+        
         // create the radar, set the monster location, and perform the initial scan
         final int ROWS = 100;
         final int COLS = 100;
         Radar radar = new Radar(ROWS, COLS);
         radar.setNoiseFraction(0.10);
+        radar.setMonsterLocation(monsterRow, monsterCol);
         radar.scan();
         
         JFrame frame = new JFrame();
